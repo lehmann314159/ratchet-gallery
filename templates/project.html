@@ -8,23 +8,31 @@
         <p class="description">{{.Project.Description}}</p>
 
         {{if .DesignDoc}}
-        <h2>Design Doc</h2>
-        {{.DesignDoc}}
+        <details class="meta-section" open>
+            <summary>Design Doc</summary>
+            <div class="section-body">{{.DesignDoc}}</div>
+        </details>
         {{end}}
 
         {{if .Survey}}
-        <h2>Survey</h2>
-        {{.Survey}}
+        <details class="meta-section">
+            <summary>Survey</summary>
+            <div class="section-body">{{.Survey}}</div>
+        </details>
         {{end}}
 
         {{if .Traces}}
-        <h2>Build Forensics</h2>
-        <p class="hint">Ratchet's own mechanically-written per-bead reports — no model call, written at every terminal state including escalations.</p>
-        <ul class="trace-list">
-            {{range .Traces}}
-            <li><a href="/p/{{$.Project.Slug}}/traces/{{.}}">{{.}}</a></li>
-            {{end}}
-        </ul>
+        <details class="meta-section">
+            <summary>Build Forensics ({{len .Traces}})</summary>
+            <div class="section-body">
+                <p class="hint">Ratchet's own mechanically-written per-bead reports — no model call, written at every terminal state including escalations.</p>
+                <ul class="trace-list">
+                    {{range .Traces}}
+                    <li><a href="/p/{{$.Project.Slug}}/traces/{{.}}">{{.}}</a></li>
+                    {{end}}
+                </ul>
+            </div>
+        </details>
         {{end}}
     </aside>
     <section class="live-pane">
