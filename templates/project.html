@@ -1,0 +1,24 @@
+{{template "base" .}}
+{{define "title"}}{{.Project.Title}}{{end}}
+{{define "content"}}
+<div class="two-pane">
+    <aside class="meta-pane">
+        <a href="/" class="back-link">&larr; All projects</a>
+        <h1>{{.Project.Title}}</h1>
+        <p class="description">{{.Project.Description}}</p>
+
+        {{if .DesignDoc}}
+        <h2>Design Doc</h2>
+        {{.DesignDoc}}
+        {{end}}
+
+        {{if .Survey}}
+        <h2>Survey</h2>
+        {{.Survey}}
+        {{end}}
+    </aside>
+    <section class="live-pane">
+        <iframe src="/live/{{.Project.Slug}}/" title="{{.Project.Title}} (live)"></iframe>
+    </section>
+</div>
+{{end}}

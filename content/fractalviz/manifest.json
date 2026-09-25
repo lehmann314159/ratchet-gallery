@@ -1,0 +1,9 @@
+{
+  "slug": "fractalviz",
+  "title": "FractalViz",
+  "description": "Explore Mandelbrot, Julia, Burning Ship, and Multibrot fractals rendered server-side, with a save-to-gallery of past renders.",
+  "added": "2026-09-22",
+  "backend": "fractalviz:8080",
+  "design_doc": "design_doc.md",
+  "survey": "survey.md"
+}

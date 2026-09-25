@@ -1,0 +1,15 @@
+services:
+  ratchet-gallery:
+    image: lehmann314159/ratchet-gallery:latest
+    container_name: ratchet-gallery
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8092:8070"
+    environment:
+      - PORT=8070
+    networks:
+      - web
+
+networks:
+  web:
+    external: true

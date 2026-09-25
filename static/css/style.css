@@ -1,0 +1,99 @@
+:root {
+    color-scheme: light dark;
+    --bg: #0f1115;
+    --panel: #171a21;
+    --border: #2a2e37;
+    --text: #e6e8eb;
+    --muted: #9aa1ac;
+    --accent: #7aa2f7;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+.navbar {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.nav-brand {
+    color: var(--text);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+main { padding: 1.5rem; }
+
+.lede { color: var(--muted); max-width: 60ch; }
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.project-card {
+    display: block;
+    padding: 1.25rem;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    text-decoration: none;
+}
+
+.project-card:hover { border-color: var(--accent); }
+
+.project-card h3 { margin: 0 0 0.5rem; }
+
+.project-card p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+
+.project-card .added {
+    display: block;
+    margin-top: 0.75rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+}
+
+.two-pane {
+    display: flex;
+    height: calc(100vh - 5rem);
+    gap: 1rem;
+}
+
+.meta-pane {
+    width: 32%;
+    min-width: 280px;
+    overflow-y: auto;
+    padding-right: 1rem;
+    border-right: 1px solid var(--border);
+}
+
+.back-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.live-pane { flex: 1; }
+
+.live-pane iframe {
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #fff;
+}
+
+@media (max-width: 800px) {
+    .two-pane { flex-direction: column; height: auto; }
+    .meta-pane { width: 100%; border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+    .live-pane iframe { height: 70vh; }
+}

@@ -1,0 +1,20 @@
+{{template "base" .}}
+{{define "title"}}Projects{{end}}
+{{define "content"}}
+<h1>Ratchet-created projects</h1>
+<p class="lede">Every project below was designed and built end to end by Ratchet from a design doc, with no further human input.</p>
+
+{{if .Projects}}
+<div class="project-grid">
+    {{range .Projects}}
+    <a class="project-card" href="/p/{{.Slug}}">
+        <h3>{{.Title}}</h3>
+        <p>{{.Description}}</p>
+        {{if .Added}}<span class="added">{{.Added}}</span>{{end}}
+    </a>
+    {{end}}
+</div>
+{{else}}
+<p>No projects onboarded yet.</p>
+{{end}}
+{{end}}
