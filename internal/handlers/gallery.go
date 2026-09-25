@@ -23,11 +23,17 @@ func (h *Handler) Project(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+	headline, err := h.store.Headline(slug)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 	h.render(w, "project.html", map[string]any{
 		"Project":   m,
 		"DesignDoc": h.renderMarkdown(h.store.DocPath(slug, m.DesignDoc)),
 		"Survey":    h.renderMarkdown(h.store.DocPath(slug, m.Survey)),
 		"Traces":    traces,
+		"Headline":  headline,
 	})
 }
 

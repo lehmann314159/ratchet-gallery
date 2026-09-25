@@ -7,6 +7,21 @@
         <h1>{{.Project.Title}}</h1>
         <p class="description">{{.Project.Description}}</p>
 
+        {{if .Headline.TotalBeads}}
+        <div class="headline">
+            <p class="headline-summary">{{.Headline.CleanBeads}}/{{.Headline.TotalBeads}} beads succeeded on the first attempt · total build time {{.Headline.WallTimeStr}}</p>
+            {{if .Headline.Escalated}}
+            <p class="headline-flag headline-escalated">⚠ Escalated: {{range $i, $b := .Headline.Escalated}}{{if $i}}, {{end}}<a href="/p/{{$.Project.Slug}}/traces/bead-{{$b.Number}}-report.md">bead {{$b.Number}} ({{$b.Title}})</a>{{end}}</p>
+            {{end}}
+            {{if .Headline.MultiAttempt}}
+            <p class="headline-flag">↻ Needed multiple attempts: {{range $i, $b := .Headline.MultiAttempt}}{{if $i}}, {{end}}<a href="/p/{{$.Project.Slug}}/traces/bead-{{$b.Number}}-report.md">bead {{$b.Number}} ({{$b.Attempts}} attempts)</a>{{end}}</p>
+            {{end}}
+            {{if .Headline.Revised}}
+            <p class="headline-flag">✎ Spec revised mid-run: {{range $i, $b := .Headline.Revised}}{{if $i}}, {{end}}<a href="/p/{{$.Project.Slug}}/traces/bead-{{$b.Number}}-report.md">bead {{$b.Number}}</a>{{end}}</p>
+            {{end}}
+        </div>
+        {{end}}
+
         {{if .DesignDoc}}
         <details class="meta-section" open>
             <summary>Design Doc</summary>
