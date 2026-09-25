@@ -1,0 +1,8 @@
+{{template "base" .}}
+{{define "title"}}{{.File}}{{end}}
+{{define "content"}}
+<a href="/p/{{.Slug}}" class="back-link">&larr; Back to {{.Slug}}</a>
+<article class="doc">
+{{.Content}}
+</article>
+{{end}}

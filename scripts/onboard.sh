@@ -85,6 +85,16 @@ mkdir -p "${CONTENT_DIR}"
 [ -f "${SRC}/design_doc.md" ] && cp "${SRC}/design_doc.md" "${CONTENT_DIR}/"
 [ -f "${SRC}/survey.md" ] && cp "${SRC}/survey.md" "${CONTENT_DIR}/"
 
+# Per-bead build-forensics reports only — Ratchet's mechanically-written,
+# no-model-call reports at every terminal state (small, a few KB to tens of
+# KB each). Deliberately NOT project-report.md (the aggregate one can run to
+# tens of megabytes) and NOT the raw attempt/refine-write .log files (noisy
+# execution transcripts, not curated documentation).
+if [ -d "${SRC}/traces" ]; then
+  mkdir -p "${CONTENT_DIR}/traces"
+  find "${SRC}/traces" -maxdepth 1 -name 'bead-*-report.md' -exec cp {} "${CONTENT_DIR}/traces/" \;
+fi
+
 cat > "${CONTENT_DIR}/manifest.json" <<EOF
 {
   "slug": "${SLUG}",

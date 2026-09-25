@@ -21,6 +21,7 @@ func main() {
 	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	mux.HandleFunc("GET /{$}", h.Index)
 	mux.HandleFunc("GET /p/{slug}", h.Project)
+	mux.HandleFunc("GET /p/{slug}/traces/{file}", h.Trace)
 	mux.HandleFunc("/live/{slug}/", h.Proxy)
 
 	port := os.Getenv("PORT")

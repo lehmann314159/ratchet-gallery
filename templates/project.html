@@ -16,6 +16,16 @@
         <h2>Survey</h2>
         {{.Survey}}
         {{end}}
+
+        {{if .Traces}}
+        <h2>Build Forensics</h2>
+        <p class="hint">Ratchet's own mechanically-written per-bead reports — no model call, written at every terminal state including escalations.</p>
+        <ul class="trace-list">
+            {{range .Traces}}
+            <li><a href="/p/{{$.Project.Slug}}/traces/{{.}}">{{.}}</a></li>
+            {{end}}
+        </ul>
+        {{end}}
     </aside>
     <section class="live-pane">
         <iframe src="/live/{{.Project.Slug}}/" title="{{.Project.Title}} (live)"></iframe>
