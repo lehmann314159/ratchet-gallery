@@ -87,12 +87,23 @@ mkdir -p "${CONTENT_DIR}"
 
 # Per-bead build-forensics reports only — Ratchet's mechanically-written,
 # no-model-call reports at every terminal state (small, a few KB to tens of
-# KB each). Deliberately NOT project-report.md (the aggregate one can run to
-# tens of megabytes) and NOT the raw attempt/refine-write .log files (noisy
-# execution transcripts, not curated documentation).
+# KB each). Deliberately NOT project-report.md in full (the aggregate one
+# can run to tens of megabytes, mostly a dump of every final source file)
+# and NOT the raw attempt/refine-write .log files (noisy execution
+# transcripts, not curated documentation).
 if [ -d "${SRC}/traces" ]; then
   mkdir -p "${CONTENT_DIR}/traces"
   find "${SRC}/traces" -maxdepth 1 -name 'bead-*-report.md' -exec cp {} "${CONTENT_DIR}/traces/" \;
+
+  # project-report.md's header (status + Bead Summary table + Attempt
+  # Distribution) is small and has the real project-wide wall-clock time
+  # (created_at -> updated_at) plus authoritative per-bead attempts/revisions
+  # — everything after "## Final Source Files" is the multi-MB source dump,
+  # cut before it.
+  if [ -f "${SRC}/traces/project-report.md" ]; then
+    awk '/^## Final Source Files/{exit} {print}' "${SRC}/traces/project-report.md" \
+      > "${CONTENT_DIR}/project-summary.md"
+  fi
 fi
 
 cat > "${CONTENT_DIR}/manifest.json" <<EOF
