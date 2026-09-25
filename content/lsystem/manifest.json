@@ -1,0 +1,9 @@
+{
+  "slug": "lsystem",
+  "title": "L-System Studio",
+  "description": "A parametric Lindenmayer-system editor: write an L-system DSL with an arithmetic expression sub-language, pick an iteration count, and see it rendered as SVG turtle graphics. Includes presets for the Koch curve, Koch snowflake, Heighway dragon, Hilbert curve, and a fractal plant.",
+  "added": "2026-09-24",
+  "backend": "lsystem:8080",
+  "design_doc": "design_doc.md",
+  "survey": "survey.md"
+}

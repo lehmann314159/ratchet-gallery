@@ -4,9 +4,10 @@
 # Usage: scripts/onboard.sh <ratchet-output-dir> <slug> <title> <description>
 #
 # What this does NOT do: touch gx10's system Caddy, bind a host port, or
-# require a gallery rebuild/redeploy. The project joins the shared "web"
-# Docker network and is reachable by container name; the gallery picks it up
-# on the next request once content/<slug>/manifest.json exists.
+# require a gallery image rebuild/redeploy. The project joins the shared
+# "web" Docker network and is reachable by container name; content/<slug>/ is
+# rsynced straight into the gallery's bind-mounted content/ dir on gx10, so
+# it's visible on the next request, not the next deploy.
 set -euo pipefail
 
 SRC="${1:?usage: onboard.sh <ratchet-output-dir> <slug> <title> <description>}"
@@ -118,6 +119,12 @@ cat > "${CONTENT_DIR}/manifest.json" <<EOF
 }
 EOF
 
+# --- 5. Sync content straight to the running gallery — it bind-mounts
+# content/ (docker-compose.yml: "./content:/app/content"), so this shows up
+# immediately, no image rebuild/redeploy. Commit the same content/ to git
+# separately so it's not just live on gx10 and nowhere else. ---
+rsync -av "${CONTENT_DIR}/" "${REMOTE_HOST}:~/apps/ratchet-gallery/content/${SLUG}/"
+
 echo
-echo "Onboarded '${SLUG}'. Commit content/${SLUG}/ to the gallery repo, then"
-echo "visit https://ratchet.verynormalserver.com/p/${SLUG} (no gallery restart needed)."
+echo "Onboarded '${SLUG}' — live now at https://ratchet.verynormalserver.com/p/${SLUG}."
+echo "Don't forget: git add content/${SLUG} && git commit && git push (content isn't tracked automatically)."

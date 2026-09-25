@@ -5,6 +5,8 @@ services:
     restart: unless-stopped
     ports:
       - "127.0.0.1:8092:8070"
+    volumes:
+      - ./content:/app/content
     environment:
       - PORT=8070
     networks:
